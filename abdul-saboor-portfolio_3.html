@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abdul Saboor — Fulfillment &amp; Supply Chain Product</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --concrete:#E4E3DE;
+  --panel:#F6F5F2;
+  --ink:#15171A;
+  --slate:#5E6367;
+  --rule:#C8C6BF;
+  --amber:#E8A317;
+  --amber-deep:#B87B06;
+  --sig:'Barlow Condensed',Impact,'Haettenschweiler','Arial Narrow',sans-serif;
+  --body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--concrete);color:var(--ink);
+  font-family:var(--body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---------- eyebrow / utility type ---------- */
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--slate);
+}
+
+/* ---------- hero ---------- */
+.hero{padding:72px 0 0}
+.hero__tag{display:flex;align-items:center;gap:14px;margin-bottom:34px}
+.hero__tag span{white-space:nowrap}
+.hero__tag i{flex:1;height:1px;background:var(--rule);display:block}
+.hero__name{
+  margin-top:214px;
+  font-family:var(--sig);font-weight:700;
+  font-size:clamp(58px,12.5vw,158px);line-height:.84;
+  letter-spacing:-.015em;text-transform:uppercase;margin-bottom:0;
+}
+.hero__role{
+  font-family:var(--sig);font-weight:500;
+  font-size:clamp(19px,3.1vw,32px);line-height:1.12;
+  text-transform:uppercase;letter-spacing:.05em;
+  color:var(--slate);margin:16px 0 0;max-width:22ch;
+}
+.hero__lede{
+  margin:38px 0 0;max-width:60ch;font-size:17.5px;color:#2C3033;
+}
+.hero__lede strong{font-weight:600;color:var(--ink)}
+
+/* ---------- lifecycle band ---------- */
+.band{margin:56px 0 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+.band__inner{display:flex;flex-wrap:wrap;gap:0}
+.band a{
+  flex:1 1 0;min-width:132px;text-decoration:none;color:var(--ink);
+  padding:18px 16px 20px;border-right:1px solid var(--rule);
+  display:block;transition:background .18s ease;
+}
+.band a:last-child{border-right:0}
+.band a:hover,.band a:focus-visible{background:var(--panel)}
+.band__no{
+  font-family:var(--mono);font-size:11px;color:var(--amber-deep);
+  letter-spacing:.12em;display:block;margin-bottom:7px;
+}
+.band__nm{
+  font-family:var(--sig);font-weight:600;font-size:18px;
+  text-transform:uppercase;letter-spacing:.045em;line-height:1.15;display:block;
+}
+
+/* ---------- note panel ---------- */
+.note{
+  margin:52px 0 0;background:var(--panel);
+  border-left:4px solid var(--amber);padding:26px 30px;max-width:74ch;
+}
+.note p{margin:10px 0 0;font-size:15px;color:#33383C}
+.note p:first-of-type{margin-top:12px}
+
+/* ---------- layout with rail ---------- */
+.main{display:grid;grid-template-columns:200px 1fr;gap:56px;margin:88px 0 0;align-items:start}
+.rail{position:sticky;top:40px}
+.rail ol{list-style:none;margin:0;padding:0}
+.rail li{position:relative;padding:0 0 30px 26px}
+.rail li::before{
+  content:"";position:absolute;left:3px;top:6px;width:9px;height:9px;
+  border:1.5px solid var(--slate);background:var(--concrete);border-radius:50%;
+  transition:background .25s ease,border-color .25s ease,transform .25s ease;
+}
+.rail li::after{
+  content:"";position:absolute;left:7px;top:15px;bottom:0;width:1px;background:var(--rule);
+}
+.rail li:last-child::after{display:none}
+.rail li.is-on::before{background:var(--amber);border-color:var(--amber-deep);transform:scale(1.35)}
+.rail a{
+  text-decoration:none;color:var(--slate);font-family:var(--sig);
+  font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.05em;
+  line-height:1.2;display:block;transition:color .2s ease;
+}
+.rail li.is-on a{color:var(--ink)}
+.rail a:hover,.rail a:focus-visible{color:var(--ink)}
+.rail__no{font-family:var(--mono);font-size:10px;letter-spacing:.14em;display:block;color:var(--amber-deep);margin-bottom:3px;font-weight:400}
+
+/* ---------- stage sections ---------- */
+.stage{margin:0 0 78px;scroll-margin-top:28px}
+.stage:last-of-type{margin-bottom:40px}
+.stage__head{border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:0}
+.stage__no{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--amber-deep);display:block;margin-bottom:6px}
+.stage__nm{
+  font-family:var(--sig);font-weight:700;font-size:clamp(30px,4.4vw,46px);
+  text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0;
+}
+.stage__sub{margin:14px 0 0;font-size:15.5px;color:var(--slate);max-width:62ch}
+
+/* ---------- project ---------- */
+.proj{border-bottom:1px solid var(--rule);padding:34px 0 32px}
+.proj__code{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;
+  color:var(--amber-deep);margin-bottom:9px;
+}
+.proj__title{
+  font-family:var(--sig);font-weight:600;font-size:clamp(23px,2.9vw,31px);
+  line-height:1.08;letter-spacing:.005em;margin:0;text-transform:uppercase;
+}
+.proj__meta{
+  font-family:var(--mono);font-size:12px;color:var(--slate);
+  margin:9px 0 0;letter-spacing:.02em;
+}
+.proj__body{margin:22px 0 0;display:grid;grid-template-columns:96px 1fr;gap:9px 22px}
+.proj__body dt{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--slate);padding-top:4px;
+}
+.proj__body dd{margin:0;font-size:15.5px;color:#282C2F}
+.proj__body dd ul{margin:0;padding-left:17px}
+.proj__body dd li{margin-bottom:5px}
+.proj__body dd li:last-child{margin-bottom:0}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 0;padding:0 0 0 118px}
+.tags li{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--slate);
+  border:1px solid var(--rule);padding:4px 9px;background:var(--panel);
+}
+
+/* ---------- footer ---------- */
+.foot{border-top:2px solid var(--ink);margin:70px 0 0;padding:34px 0 76px}
+.foot__grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;align-items:flex-end}
+.foot__nm{font-family:var(--sig);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0}
+.foot__links{display:flex;flex-wrap:wrap;gap:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em}
+.foot__links a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--amber);padding-bottom:2px}
+.foot__links a:hover,.foot__links a:focus-visible{border-bottom-color:var(--ink)}
+.foot__note{margin:26px 0 0;font-size:13.5px;color:var(--slate);max-width:66ch}
+
+a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outline-offset:3px}
+
+@media (max-width:900px){
+  .main{grid-template-columns:1fr;gap:0;margin-top:60px}
+  .rail{position:static;margin-bottom:44px;border-bottom:1px solid var(--rule);padding-bottom:8px}
+  .rail ol{display:flex;flex-wrap:wrap;gap:0 22px}
+  .rail li{padding:0 0 16px 0}
+  .rail li::before,.rail li::after{display:none}
+  .rail li.is-on a{border-bottom:2px solid var(--amber)}
+  .proj__body{grid-template-columns:1fr;gap:4px}
+  .proj__body dt{padding-top:12px}
+  .proj__body dt:first-child{padding-top:0}
+  .tags{padding-left:0}
+}
+@media (max-width:560px){
+  .wrap{padding:0 20px}
+  .hero{padding-top:44px}
+  .band a{min-width:50%;border-bottom:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+
+/* ---------- hero map ---------- */
+.hero{position:relative;overflow:hidden;padding:34px 0 46px}
+.hero__map{position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  width:min(1180px,100%);z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 58%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 58%,transparent 100%)}
+.hero__map svg{width:100%;height:auto;display:block}
+.hero__inner{position:relative;z-index:1}
+.map-land{fill:var(--ink);opacity:.13}
+.map-lead{stroke:var(--slate);stroke-width:.9;opacity:.65;fill:none}
+.map-city{font-family:var(--sig);font-weight:600;font-size:13px;letter-spacing:.06em;fill:var(--ink)}
+.map-desc{font-family:var(--mono);font-size:8.4px;letter-spacing:.1em;fill:var(--slate)}
+.pin-work{fill:var(--amber);stroke:var(--ink);stroke-width:1.1}
+.pin-edu{fill:#1D5C6E}
+.legend{list-style:none;display:flex;flex-wrap:wrap;gap:9px 24px;margin:34px 0 0;padding:0}
+.legend li{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--slate);display:flex;align-items:center;gap:9px}
+.legend i{width:8px;height:8px;background:var(--amber);border:1px solid var(--ink);
+  display:inline-block;flex:none;font-style:normal}
+.legend .is-edu i{background:#1D5C6E;border-color:#1D5C6E;border-radius:50%}
+@media (max-width:900px){
+  .map-labels{display:none}
+  .hero{padding-bottom:34px}
+  .hero__name{margin-top:26px}
+  .hero__map{top:auto;bottom:10px;opacity:.85;
+    -webkit-mask-image:none;mask-image:none}
+}
+@media (max-width:560px){
+  .hero__map{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero__map"><svg viewBox="0 0 960 390" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="World map marking Cardiff, Kent, Berlin, Riyadh and Dubai">
+  <g class="map-land" id="land-dots"></g>
+  <g class="map-labels">
+    <path class="map-lead" d="M 469,87 L 430,58"/>
+    <text class="map-city" x="424" y="55" text-anchor="end">CARDIFF, WALES</text>
+    <text class="map-desc" x="424" y="68" text-anchor="end">UNIVERSITY</text>
+
+    <path class="map-lead" d="M 481,99 L 448,132"/>
+    <text class="map-city" x="442" y="129" text-anchor="end">KENT, ENGLAND</text>
+    <text class="map-desc" x="442" y="142" text-anchor="end">Warehouse Operations</text>
+
+    <path class="map-lead" d="M 519,86 L 556,52"/>
+    <text class="map-city" x="562" y="49">BERLIN, GERMANY</text>
+    <text class="map-desc" x="562" y="62">Supply Chain Technologies</text>
+
+    <path class="map-lead" d="M 601,168 L 556,206"/>
+    <text class="map-city" x="550" y="203" text-anchor="end">RIYADH, SAUDI ARABIA</text>
+    <text class="map-desc" x="550" y="216" text-anchor="end">Fulfillment Technologies - Marketplace</text>
+
+    <path class="map-lead" d="M 631,166 L 676,196"/>
+    <text class="map-city" x="682" y="193">DUBAI, UAE</text>
+    <text class="map-desc" x="682" y="206">Last Mile Product</text>
+  </g>
+  <circle class="pin-work" cx="481.4" cy="93.3" r="4.4"/><circle class="pin-work" cx="515.7" cy="90" r="5"/><circle class="pin-work" cx="604.5" cy="164.1" r="5"/><circle class="pin-work" cx="627.4" cy="162.8" r="5"/>
+  <g class="pin-edu" transform="translate(471.5,92.7) scale(0.5)"><path d="M -9,-5 C -5.5,-7.4 -2.6,-7.4 0,-5 C 2.6,-7.4 5.5,-7.4 9,-5 L 9,5 C 5.5,2.8 2.6,2.8 0,5 C -2.6,2.8 -5.5,2.8 -9,5 Z"/><rect x="-0.7" y="-5.4" width="1.4" height="10.4"/></g>
+</svg></div>
+  <div class="wrap hero__inner">
+    <div class="hero__tag eyebrow"><span>Product Portfolio</span><i></i><span>Fulfillment Technology</span></div>
+    <h1 class="hero__name">Abdul<br>Saboor</h1>
+    <p class="hero__role">Product leader — inventory, warehouse and last-mile systems</p>
+    <p class="hero__lede">Fourteen projects, four countries, one continuous problem: getting the right item to the right person on time, at a cost the business can carry. Every project here sits somewhere on the path an order takes from <strong>a promise made at checkout</strong> to <strong>a box at the door</strong> — so that is how they are filed, by stage of the order rather than by the company that paid for them.</p>
+    <ul class="legend">
+      <li class="is-edu"><i></i>Cardiff — university</li>
+      <li><i></i>Kent — grocery distribution</li>
+      <li><i></i>Dubai — last mile &amp; omnichannel</li>
+      <li><i></i>Riyadh — marketplace fulfillment</li>
+      <li><i></i>Berlin — meal-kit fulfillment</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="band wrap" aria-label="Order lifecycle">
+  <div class="band__inner">
+    <a href="#stage-01"><span class="band__no">01</span><span class="band__nm">Availability</span></a>
+    <a href="#stage-02"><span class="band__no">02</span><span class="band__nm">Production</span></a>
+    <a href="#stage-03"><span class="band__no">03</span><span class="band__nm">Promise</span></a>
+    <a href="#stage-04"><span class="band__no">04</span><span class="band__nm">Last mile</span></a>
+    <a href="#stage-05"><span class="band__no">05</span><span class="band__nm">Returns</span></a>
+    <a href="#stage-06"><span class="band__no">06</span><span class="band__nm">Off the line</span></a>
+  </div>
+</nav>
+
+<section class="note wrap" aria-label="How to read this">
+  <p class="eyebrow">How to read this</p>
+  <p>Employers are described by category, not name. Architecture diagrams, internal documents and unlaunched roadmap are not reproduced anywhere on this page. What is here is the problem, the reasoning, and the result — which is the part worth discussing anyway.</p>
+  <p>Figures are either already public or stated as the design target they were. Happy to go deeper in conversation on anything below.</p>
+</section>
+
+<div class="wrap main">
+
+  <nav class="rail" aria-label="Jump to stage">
+    <ol>
+      <li data-rail="stage-01"><a href="#stage-01"><span class="rail__no">01</span>Availability &amp; inventory</a></li>
+      <li data-rail="stage-02"><a href="#stage-02"><span class="rail__no">02</span>Production &amp; warehouse</a></li>
+      <li data-rail="stage-03"><a href="#stage-03"><span class="rail__no">03</span>Promise &amp; planning</a></li>
+      <li data-rail="stage-04"><a href="#stage-04"><span class="rail__no">04</span>Last mile &amp; peak</a></li>
+      <li data-rail="stage-05"><a href="#stage-05"><span class="rail__no">05</span>Returns</a></li>
+      <li data-rail="stage-06"><a href="#stage-06"><span class="rail__no">06</span>Off the line</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ============ 01 ============ -->
+    <section class="stage" id="stage-01">
+      <div class="stage__head">
+        <span class="stage__no">Stage 01</span>
+        <h2 class="stage__nm">Availability &amp; inventory</h2>
+      </div>
+      <p class="stage__sub">Before anything can be promised, the business has to know what it actually has, where it sits, and who it belongs to.</p>
+
+      <article class="proj">
+        <p class="proj__code">INV-01 · built from zero</p>
+        <h3 class="proj__title">Inventory management system for a marketplace</h3>
+        <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>A marketplace lets several sellers list the same product from different locations. Treating a SKU as the unit of inventory breaks immediately — you cannot tell whose stock you just sold, or which warehouse owes the customer.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Defined an offer-level identity model — product, supplier and location combined into one key — so the same SKU could be listed by multiple sellers without collision.</li>
+            <li>Modelled stock movement as a transaction ledger: receipts, issues, transfers and adjustments, each with a reason code, rather than mutating a quantity field.</li>
+            <li>Set the system up as the single source of truth other systems subscribe to, instead of one more integration in a mesh.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Shipped as the inventory backbone for the marketplace, with real-time positions replacing periodic file syncs.</dd>
+        </dl>
+        <ul class="tags"><li>Data modelling</li><li>Systems design</li><li>Marketplace</li><li>Zero to one</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">INV-02</p>
+        <h3 class="proj__title">Availability, allocation and reservation</h3>
+        <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Overselling and stockouts are the same failure seen from two sides: the number the storefront shows is not the number the warehouse can actually pick.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Specified a global available-to-promise calculation covering every location and every offer, exposed in real time.</li>
+            <li>Added rule-based ring-fencing so stock could be held back for flash sales, priority orders or campaigns without cloning inventory records.</li>
+            <li>Designed a two-step reservation handshake — soft at order creation, hard on warehouse acceptance — with time and event-based release so abandoned carts return stock automatically.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Storefront availability and warehouse reality converged; campaign stock could be committed without taking it off sale.</dd>
+        </dl>
+        <ul class="tags"><li>Real-time systems</li><li>ATP</li><li>Edge cases</li><li>Commercial trade-offs</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">INV-03</p>
+        <h3 class="proj__title">One inventory picture across five source types</h3>
+        <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Stock lived in a third-party logistics provider, owned warehouses, retail back rooms and seller systems — each with its own schema, update cadence and definition of "available".</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Built an integration layer that harmonised roughly forty inventory attributes into one model, marking each field mandatory or optional by source.</li>
+            <li>Chose publish-subscribe over point-to-point so order management, cart and search consumed one feed rather than four.</li>
+            <li>Sequenced the rollout by source type, deliberately taking the third-party provider first because it was the only one already API-addressable.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Unlocked fulfilled-from-store and fulfilled-by-platform models that were previously blocked on inventory visibility.</dd>
+        </dl>
+        <ul class="tags"><li>Integration architecture</li><li>Phased delivery</li><li>Dependency management</li></ul>
+      </article>
+    </section>
+
+    <!-- ============ 02 ============ -->
+    <section class="stage" id="stage-02">
+      <div class="stage__head">
+        <span class="stage__no">Stage 02</span>
+        <h2 class="stage__nm">Production &amp; warehouse</h2>
+      </div>
+      <p class="stage__sub">The floor is where cost per order is actually won or lost — in labour minutes, walking distance, and how often something has to be done twice.</p>
+
+      <article class="proj">
+        <p class="proj__code">PRD-01 · flagship</p>
+        <h3 class="proj__title">Build-to-order fulfillment</h3>
+        <p class="proj__meta">European meal-kit business, three continents · Product lead, supply chain technologies</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Under a build-to-stock model, every additional menu option needs its own pre-built inventory and its own share of finite line capacity. Menu size — the company's main growth lever — was capped by the physical shape of the warehouse.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Reframed the constraint: the ceiling was in the fulfillment model, not the buildings, so the fix belonged in production software rather than capital expenditure.</li>
+            <li>Designed the production capability to assemble to the order instead of drawing from pre-built stock, and worked through what that changed for picking, sequencing and quality control.</li>
+            <li>Delivered against live sites, where the cost of getting it wrong is measured in missed customer boxes.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Menu expansion decoupled from line capacity. Adopted as the company's top strategic objective, contributing directly to top-line growth.</dd>
+        </dl>
+        <ul class="tags"><li>Strategy</li><li>Constraint reframing</li><li>Operating model change</li><li>Executive alignment</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">PRD-02</p>
+        <h3 class="proj__title">Production control system and floor tooling</h3>
+        <p class="proj__meta">European meal-kit business, three continents · Product lead, supply chain technologies</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Distribution centres on three continents run the same product on different building shapes, labour markets and volumes. One global platform ignores that; per-site software is unmaintainable.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Own the roadmap for the production control system and the tools around it — picking applications, quality control, electronic shelf labels for replenishment and pick accuracy, and production dashboards for site leadership.</li>
+            <li>Hold the roadmap against four operating metrics: labour minutes per box, error rate, boxes per hour, and how far the menu can scale.</li>
+            <li>Draw the line between what must be global and what sites configure themselves, deliberately, rather than letting it be settled by whoever escalates loudest.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>A single production platform in use across Europe, North America and ANZ, with every launch instrumented against at least one floor metric.</dd>
+        </dl>
+        <ul class="tags"><li>Platform strategy</li><li>Labour efficiency</li><li>Global rollout</li><li>Operational KPIs</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">WMS-01 · built from zero</p>
+        <h3 class="proj__title">Omni-channel warehouse management system</h3>
+        <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Off-the-shelf warehouse systems assume an order is fulfilled from one warehouse. The business had staked itself on orders assembled from stores, warehouses and partners at once — and the platforms that could be adapted cost more than building.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Made and documented the build-versus-buy case, including what buying would have bought us and why the hypothesis was too unproven to justify the price.</li>
+            <li>Defined the full process scope — receiving, quality check, putaway, replenishment, picking, consolidation, packing, sortation, dispatch and returns — across fulfillment centres, delivery stations, retail stores and bonded cross-border sites.</li>
+            <li>Planned execution backwards from the critical pull time, so the system scheduled every upstream step against the cut-off and flagged delays before they reached the customer.</li>
+            <li>Cut hardware cost by specifying consumer devices with clip-on infrared scanners in place of industrial handhelds.</li>
+            <li>Shipped as a mobile app for the floor and a web console for warehouse managers, API-first so third-party hardware and software could attach.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Built to a design point of 1.5K orders a day, half a million items in storage, 99.5% delivered in full and on time, and fulfillment inside 24 hours.</dd>
+        </dl>
+        <ul class="tags"><li>Build vs buy</li><li>WMS</li><li>Process design</li><li>Hardware strategy</li><li>Chain of custody</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">WMS-02</p>
+        <h3 class="proj__title">Fulfillment technology across 80+ sites</h3>
+        <p class="proj__meta">Regional grocery and hypermarket operator, MENA · Product manager, logistics</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Technology that works in a pilot warehouse routinely fails at the fiftieth, where the building is older, the team is newer and nobody was in the room when it was designed.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Directed rollout of fulfillment technology across more than eighty sites, including automated warehouses.</li>
+            <li>Paired every deployment with performance management tooling, so sites could see their own numbers rather than hear about them a month later.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>On-time in-full up 11%; fleet utilisation up 27%.</dd>
+        </dl>
+        <ul class="tags"><li>Scaled rollout</li><li>Change management</li><li>Automation</li><li>Performance tooling</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">WMS-03 · hands-on build</p>
+        <h3 class="proj__title">AI-native warehouse and receiving applications</h3>
+        <p class="proj__meta">Enterprise supply chain clients, Europe · Forward deployed engineer</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Mid-size operators need warehouse software shaped to their ERP and their process, but cannot fund a conventional build cycle to get it.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Owned product definition, solution architecture, interface design and implementation — not a prototype handed off, but the working system.</li>
+            <li>Used agentic development tooling to compress the cycle while holding enterprise integration and quality standards.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>ERP-integrated warehouse management and inventory receiving applications running in live operations for clients in several countries.</dd>
+        </dl>
+        <ul class="tags"><li>Zero to one</li><li>Solution architecture</li><li>AI-assisted delivery</li><li>ERP integration</li></ul>
+      </article>
+    </section>
+
+    <!-- ============ 03 ============ -->
+    <section class="stage" id="stage-03">
+      <div class="stage__head">
+        <span class="stage__no">Stage 03</span>
+        <h2 class="stage__nm">Promise &amp; planning</h2>
+      </div>
+      <p class="stage__sub">The delivery date shown at checkout is the most consequential number in e-commerce. It sets the customer's expectation and commits the network to meeting it.</p>
+
+      <article class="proj">
+        <p class="proj__code">PRM-01</p>
+        <h3 class="proj__title">Dynamic delivery promise</h3>
+        <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>A fixed promise is wrong twice over: too cautious for customers near a stocked warehouse, too optimistic for everyone else. Both cost money — one in lost conversion, the other in failed deliveries.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Built the promise from real signals — where the stock is, which site can fulfil, the cut-off still reachable, and the customer's actual location — rather than a static table.</li>
+            <li>Added location intelligence to improve address accuracy in a region where addressing is genuinely hard.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Same-day and next-day availability up 14%; failed deliveries down 4.7%; NPS up 0.7.</dd>
+        </dl>
+        <ul class="tags"><li>Delivery promise</li><li>Location intelligence</li><li>Conversion</li><li>Cost to serve</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">PRM-02</p>
+        <h3 class="proj__title">Network planning and distribution optimization</h3>
+        <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>A mixed fleet of owned drivers and third-party carriers, planned by hand, cannot be reasoned about — you can see the cost but not which decision caused it.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Owned the planning platform end to end: routing, delivery zones, capacity planning and slot optimization.</li>
+            <li>Worked directly with engineering on the optimization approach and, more importantly, on the operational constraints it had to respect to be usable.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Service levels, promise accuracy and cost per order became measurable and steerable rather than emergent.</dd>
+        </dl>
+        <ul class="tags"><li>Network optimization</li><li>Routing</li><li>Capacity planning</li><li>3PL</li></ul>
+      </article>
+    </section>
+
+    <!-- ============ 04 ============ -->
+    <section class="stage" id="stage-04">
+      <div class="stage__head">
+        <span class="stage__no">Stage 04</span>
+        <h2 class="stage__nm">Last mile &amp; peak</h2>
+      </div>
+      <p class="stage__sub">The only part of fulfillment the customer sees — and the part that breaks first when volume spikes.</p>
+
+      <article class="proj">
+        <p class="proj__code">LM-01</p>
+        <h3 class="proj__title">Last-mile platform suite across 11 countries</h3>
+        <p class="proj__meta">Regional grocery and hypermarket operator, MENA · Product manager, logistics</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Eleven countries, each with its own carriers, licensed tooling and definition of a delivery — and a growing subscription bill for software that did not talk to itself.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Led development of carrier management, delivery management, delivery promise and customer order tracking as one connected suite.</li>
+            <li>Built predictive analytics and routing optimization on top, so planning improved as the data accumulated.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Deployed across eleven countries, replacing licensed tooling for AED 4.8M in annual savings while improving the tracking experience.</dd>
+        </dl>
+        <ul class="tags"><li>Multi-country</li><li>Carrier management</li><li>Cost reduction</li><li>Predictive analytics</li></ul>
+      </article>
+
+      <article class="proj">
+        <p class="proj__code">LM-02</p>
+        <h3 class="proj__title">Peak trading at four times volume</h3>
+        <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>The region's largest trading event compresses a month of orders into days. Everything that is merely adequate in normal weeks fails, and it fails in public.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Owned platform readiness and launch execution end to end, working backwards from the volume the network had to survive.</li>
+            <li>Treated the constraint as the design input rather than testing against normal load and hoping.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Sustained four times normal transaction volume without service degradation.</dd>
+        </dl>
+        <ul class="tags"><li>Peak readiness</li><li>Launch execution</li><li>Scale testing</li></ul>
+      </article>
+    </section>
+
+    <!-- ============ 05 ============ -->
+    <section class="stage" id="stage-05">
+      <div class="stage__head">
+        <span class="stage__no">Stage 05</span>
+        <h2 class="stage__nm">Returns</h2>
+      </div>
+      <p class="stage__sub">Reverse logistics is where customer trust is either repaired or lost for good, and it is almost always the least designed part of the chain.</p>
+
+      <article class="proj">
+        <p class="proj__code">RET-01</p>
+        <h3 class="proj__title">Returns and order journey redesign</h3>
+        <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>A three-day refund turnaround generates a contact for every return. The customer is not chasing money so much as chasing certainty, and every one of those contacts costs twice — once in service, once in trust.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Redesigned returns, address management and order journeys across web and mobile as one flow rather than three screens.</li>
+            <li>Attacked the refund timeline itself instead of adding status messaging on top of a slow process.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Refund turnaround cut from 72 hours to under 24; customer contacts down 11%; satisfaction up.</dd>
+        </dl>
+        <ul class="tags"><li>Reverse logistics</li><li>Customer experience</li><li>Web &amp; mobile</li><li>Contact reduction</li></ul>
+      </article>
+    </section>
+
+    <!-- ============ 06 ============ -->
+    <section class="stage" id="stage-06">
+      <div class="stage__head">
+        <span class="stage__no">Stage 06</span>
+        <h2 class="stage__nm">Off the line</h2>
+      </div>
+      <p class="stage__sub">Work that sits outside the order path, where the same instincts apply to a different problem.</p>
+
+      <article class="proj">
+        <p class="proj__code">PLT-01 · advisory</p>
+        <h3 class="proj__title">B2B marketplace with embedded finance</h3>
+        <p class="proj__meta">Stealth startup, GCC · Fractional chief product officer</p>
+        <dl class="proj__body">
+          <dt>Problem</dt>
+          <dd>Small hospitality businesses buy supplies constantly and are financed badly. The procurement problem and the credit problem are the same problem, and solving either alone leaves most of the value on the table.</dd>
+          <dt>Approach</dt>
+          <dd><ul>
+            <li>Defined product vision, marketplace strategy, customer journeys and the commercial model.</li>
+            <li>Integrated multiple financing providers so credit and working capital appear inside the buying flow rather than beside it.</li>
+          </ul></dd>
+          <dt>Outcome</dt>
+          <dd>Roadmap shaped from concept to launch, with a path into adjacent verticals once the model is proven.</dd>
+        </dl>
+        <ul class="tags"><li>Marketplace strategy</li><li>Embedded finance</li><li>Commercial modelling</li><li>Founder advisory</li></ul>
+      </article>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <p class="foot__nm">Let's talk</p>
+      <div class="foot__links">
+        <a href="mailto:a.saboormalik@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/abdulsaboor-thepm/">LinkedIn</a>
+        <a href="https://github.com/asaboormalik-pm">GitHub</a>
+      </div>
+    </div>
+    <p class="foot__note">Berlin, Germany. Fourteen projects across meal-kit fulfillment, marketplace inventory, grocery last mile and omnichannel retail. Details of any of them, gladly, in conversation.</p>
+  </div>
+</footer>
+
+
+<script>
+/* ---------------------------------------------------------------
+   World map. Land is a 96 x 48 grid of 3.75-degree cells,
+   run-length encoded: rows separated by ";", spans by ",".
+   First row below is grid row 2. Equirectangular projection,
+   so a pin's position is:
+       x = (lon + 180) / 360 * 960
+       y = (90 - lat) / 180 * 480 - 20
+   --------------------------------------------------------------- */
+var LAND_ROW0 = 2;
+var LAND =
+"31-40;29-42,73-76;26-42,68-83;4-17,23-41,55-56,61-90;3-37,42-43,55-95;4-36,54-95;6-7,10-26,53-92;12-31,45-47,50-90;14-32,46-89;15-31,46-88;15-29,45-49,51-85;15-28,45-47,52,55-82,85;16-27,57-81,83-84;17-27,47-50,57-80,83;17-23,26,46-80;19-21,44-79;20-21,26-27,44-61,66-77;43-60,67-69,73-76,80;43-60,68-69,73-76,80-81;28-32,44-61,69,74-75,80-81;27-33,45-60,75;26-34,50-59,73-74,77-80;26-36,50-58,74,77-80,83-85;26-38,50-58,75-76,83-87;27-38,51-58,77,85-87;28-38,51-58,83-85;28-37,51-57,59-60,80-86;29-36,51-56,60,79-87;29-35,52-56,60,78-88;29-34,52-56,78-88;29-33,53-55,79-88;28-33,84-87;28-31,94;28-30,93;28-29;28-29";
+
+(function(){
+  var g = document.getElementById('land-dots');
+  if(!g) return;
+  var out = '';
+  LAND.split(';').forEach(function(row, i){
+    if(!row) return;
+    var y = (i + LAND_ROW0) * 10 + 5 - LAND_ROW0 * 10;
+    row.split(',').forEach(function(span){
+      var p = span.split('-'), a = +p[0], b = p.length > 1 ? +p[1] : a;
+      for(var c = a; c <= b; c++){
+        out += '<circle cx="' + (c * 10 + 5) + '" cy="' + y + '" r="2.7"/>';
+      }
+    });
+  });
+  g.innerHTML = out;
+})();
+</script>
+
+<script>
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rail li'));
+  var map = {};
+  items.forEach(function(li){ map[li.getAttribute('data-rail')] = li; });
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.stage'));
+  if(!('IntersectionObserver' in window) || !sections.length) return;
+
+  var visible = {};
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+    var best = null, bestVal = 0;
+    sections.forEach(function(s){
+      var v = visible[s.id] || 0;
+      if(v > bestVal){ bestVal = v; best = s.id; }
+    });
+    items.forEach(function(li){ li.classList.remove('is-on'); });
+    if(best && map[best]) map[best].classList.add('is-on');
+  }, { rootMargin:'-15% 0px -55% 0px', threshold:[0,0.15,0.4,0.75,1] });
+
+  sections.forEach(function(s){ obs.observe(s); });
+})();
+</script>
+
+</body>
+</html>
