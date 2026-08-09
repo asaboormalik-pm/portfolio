@@ -9,13 +9,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --concrete:#E4E3DE;
-  --panel:#F6F5F2;
-  --ink:#15171A;
-  --slate:#5E6367;
-  --rule:#C8C6BF;
+  --concrete:#0B0F19;
+  --panel:#131826;
+  --ink:#F2F3F5;
+  --ink2:#C9CDD6;
+  --slate:#8791A6;
+  --rule:rgba(255,255,255,.12);
   --amber:#E8A317;
-  --amber-deep:#B87B06;
+  --amber-deep:#F4B942;
+  --grid-line:rgba(255,255,255,.045);
+  --r-sm:4px;
+  --r:6px;
   --sig:'Barlow Condensed',Impact,'Haettenschweiler','Arial Narrow',sans-serif;
   --body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
@@ -23,7 +27,11 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;background:var(--concrete);color:var(--ink);
+  margin:0;background-color:var(--concrete);color:var(--ink);
+  background-image:
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:44px 44px;
   font-family:var(--body);font-size:16px;line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
@@ -34,6 +42,17 @@ body{
   font-family:var(--mono);font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--slate);
 }
+
+/* ---------- cursor ---------- */
+.cursor-dot{
+  position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;
+  background:var(--amber);pointer-events:none;z-index:999;opacity:0;
+  mix-blend-mode:difference;
+  transition:width .2s ease-in-out,height .2s ease-in-out,background .2s ease-in-out,
+    border .2s ease-in-out,opacity .2s ease-in-out;
+}
+.cursor-dot--hover{width:38px;height:38px;background:transparent;border:2px solid var(--amber)}
+@media (max-width:900px),(hover:none){.cursor-dot{display:none}}
 
 /* ---------- hero ---------- */
 .hero__name{
@@ -49,9 +68,31 @@ body{
   color:var(--slate);margin:16px 0 0;max-width:22ch;
 }
 .hero__lede{
-  margin:38px 0 0;max-width:60ch;font-size:17.5px;color:#2C3033;
+  margin:38px 0 0;max-width:60ch;font-size:17.5px;color:var(--ink2);
 }
 .hero__lede strong{font-weight:600;color:var(--ink)}
+
+/* ---------- hero value prop (headline / subhead / CTA) ---------- */
+.hero__value{margin:12px 0 44px;max-width:74ch}
+.hero__headline{
+  margin:0;font-family:var(--sig);font-weight:700;
+  font-size:clamp(30px,4.6vw,50px);line-height:1.04;
+  letter-spacing:-.01em;text-transform:uppercase;color:var(--ink);
+}
+.hero__headline em{color:var(--amber-deep);font-style:normal}
+.hero__subhead{
+  margin:18px 0 0;font-size:17px;line-height:1.55;color:var(--ink2);max-width:64ch;
+}
+.hero__cta{
+  display:inline-flex;align-items:center;gap:10px;margin:28px 0 0;
+  background:var(--amber);color:#15171A;text-decoration:none;border-radius:var(--r);
+  font-family:var(--sig);font-weight:700;font-size:15px;text-transform:uppercase;
+  letter-spacing:.06em;padding:14px 26px;border:2px solid var(--amber);
+  transition:background .2s ease-in-out,color .2s ease-in-out,border-color .2s ease-in-out,transform .2s ease-in-out;
+}
+.hero__cta:hover,.hero__cta:focus-visible{background:transparent;color:var(--amber);transform:translateY(-2px)}
+.hero__cta svg{width:14px;height:14px;transition:transform .2s ease-in-out}
+.hero__cta:hover svg{transform:translateY(3px)}
 
 /* ---------- lifecycle band ---------- */
 .band{margin:56px 0 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
@@ -59,10 +100,10 @@ body{
 .band a{
   flex:1 1 0;min-width:132px;text-decoration:none;color:var(--ink);
   padding:18px 16px 20px;border-right:1px solid var(--rule);
-  display:block;transition:background .18s ease;
+  display:block;transition:background .2s ease-in-out,transform .2s ease-in-out;
 }
 .band a:last-child{border-right:0}
-.band a:hover,.band a:focus-visible{background:var(--panel)}
+.band a:hover,.band a:focus-visible{background:var(--panel);transform:translateY(-2px)}
 .band__no{
   font-family:var(--mono);font-size:11px;color:var(--amber-deep);
   letter-spacing:.12em;display:block;margin-bottom:7px;
@@ -74,10 +115,10 @@ body{
 
 /* ---------- note panel ---------- */
 .note{
-  margin:52px 0 0;background:var(--panel);
+  margin:52px 0 0;background:var(--panel);border-radius:0 var(--r) var(--r) 0;
   border-left:4px solid var(--amber);padding:26px 30px;max-width:74ch;
 }
-.note p{margin:10px 0 0;font-size:15px;color:#33383C}
+.note p{margin:10px 0 0;font-size:15px;color:var(--ink2)}
 .note p:first-of-type{margin-top:12px}
 
 /* ---------- layout with rail ---------- */
@@ -98,7 +139,7 @@ body{
 .rail a{
   text-decoration:none;color:var(--slate);font-family:var(--sig);
   font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.05em;
-  line-height:1.2;display:block;transition:color .2s ease;
+  line-height:1.2;display:block;transition:color .2s ease-in-out;
 }
 .rail li.is-on a{color:var(--ink)}
 .rail a:hover,.rail a:focus-visible{color:var(--ink)}
@@ -116,7 +157,14 @@ body{
 .stage__sub{margin:14px 0 0;font-size:15.5px;color:var(--slate);max-width:62ch}
 
 /* ---------- project ---------- */
-.proj{border-bottom:1px solid var(--rule);padding:34px 0 32px}
+.proj{
+  border-bottom:1px solid var(--rule);padding:34px 20px 32px 14px;margin:0 -20px 0 -14px;
+  transition:background .2s ease-in-out,transform .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+.proj:hover,.proj:focus-within{
+  background:var(--panel);transform:translateX(6px);
+  box-shadow:-6px 0 0 var(--amber),0 10px 26px -14px rgba(232,163,23,.4);
+}
 .proj__code{
   font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;
   color:var(--amber-deep);margin-bottom:9px;
@@ -129,19 +177,37 @@ body{
   font-family:var(--mono);font-size:12px;color:var(--slate);
   margin:9px 0 0;letter-spacing:.02em;
 }
-.proj__body{margin:22px 0 0;display:grid;grid-template-columns:96px 1fr;gap:9px 22px}
+.proj__body{margin:22px 0 0;display:grid;grid-template-columns:100px 1fr;gap:9px 22px}
 .proj__body dt{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--slate);padding-top:4px;
 }
-.proj__body dd{margin:0;font-size:15.5px;color:#282C2F}
+.proj__body dd{margin:0;font-size:15.5px;color:var(--ink2)}
 .proj__body dd ul{margin:0;padding-left:17px}
 .proj__body dd li{margin-bottom:5px}
 .proj__body dd li:last-child{margin-bottom:0}
-.tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 0;padding:0 0 0 118px}
+
+/* ---------- metrics bento ---------- */
+.metrics{
+  list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;margin:20px 0 0;margin-left:122px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:640px;
+}
+.metrics li{background:var(--panel);padding:14px 16px 13px}
+.metrics__val{
+  display:block;font-family:var(--sig);font-weight:700;color:var(--ink);
+  font-size:clamp(19px,2.3vw,25px);line-height:1.05;letter-spacing:.01em;
+}
+.metrics li.signal .metrics__val{font-size:clamp(14px,1.7vw,17px);color:var(--amber-deep)}
+.metrics__lbl{
+  display:block;margin-top:6px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--slate);line-height:1.35;
+}
+
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 0;padding:0 0 0 122px}
 .tags li{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--slate);
+  text-transform:uppercase;color:var(--slate);border-radius:var(--r-sm);
   border:1px solid var(--rule);padding:4px 9px;background:var(--panel);
 }
 
@@ -150,11 +216,15 @@ body{
 .foot__grid{display:flex;flex-wrap:wrap;gap:34px;justify-content:space-between;align-items:flex-end}
 .foot__nm{font-family:var(--sig);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0}
 .foot__links{display:flex;flex-wrap:wrap;gap:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em}
-.foot__links a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--amber);padding-bottom:2px}
+.foot__links a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--amber);padding-bottom:2px;transition:border-color .2s ease-in-out}
 .foot__links a:hover,.foot__links a:focus-visible{border-bottom-color:var(--ink)}
 .foot__note{margin:26px 0 0;font-size:13.5px;color:var(--slate);max-width:66ch}
 
 a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outline-offset:3px}
+
+/* ---------- scroll reveal ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
 
 @media (max-width:900px){
   .main{grid-template-columns:1fr;gap:0;margin-top:60px}
@@ -163,19 +233,23 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
   .rail li{padding:0 0 16px 0}
   .rail li::before,.rail li::after{display:none}
   .rail li.is-on a{border-bottom:2px solid var(--amber)}
+  .proj{margin:0;padding:34px 0 32px}
+  .proj:hover,.proj:focus-within{transform:none;box-shadow:none;background:transparent}
   .proj__body{grid-template-columns:1fr;gap:4px}
   .proj__body dt{padding-top:12px}
   .proj__body dt:first-child{padding-top:0}
+  .metrics{margin-left:0}
   .tags{padding-left:0}
 }
 @media (max-width:560px){
   .wrap{padding:0 20px}
-  .hero__overlay{padding:0 20px}
+  .hero__overlay{padding:16px 20px}
   .band a{min-width:50%;border-bottom:1px solid var(--rule)}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none!important}
+  .reveal{opacity:1!important;transform:none!important}
 }
 
 /* ---------- hero banner ---------- */
@@ -184,14 +258,15 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
 .hero__banner{position:relative;width:100%;max-width:1600px;margin:0 auto;
   aspect-ratio:1633/963;overflow:hidden;background:var(--concrete)}
 .hero__banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.hero__overlay{position:absolute;left:1.9%;top:41%;width:36%}
+.hero__overlay{position:absolute;left:1.9%;top:41%;width:36%;padding:20px 24px;border-radius:var(--r);
+  background:linear-gradient(120deg,rgba(11,15,25,.86) 0%,rgba(11,15,25,.58) 60%,rgba(11,15,25,0) 100%)}
 .hero__overlay .hero__name{margin-top:0}
 .legend{list-style:none;display:flex;flex-wrap:wrap;gap:9px 24px;margin:34px 0 0;padding:0}
 .legend li{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   color:var(--slate);display:flex;align-items:center;gap:9px}
 .legend i{width:8px;height:8px;background:var(--amber);border:1px solid var(--ink);
   display:inline-block;flex:none;font-style:normal}
-.legend .is-edu i{background:#1D5C6E;border-color:#1D5C6E;border-radius:50%}
+.legend .is-edu i{background:#2BA7C4;border-color:#2BA7C4;border-radius:50%}
 @media (max-width:900px){
   .hero__overlay{width:44%}
   .hero__overlay .hero__name{font-size:clamp(30px,9vw,64px)}
@@ -201,7 +276,7 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
   .hero{padding-bottom:34px}
   .hero__banner{aspect-ratio:auto}
   .hero__banner-img{position:static;width:100%;height:auto;object-fit:contain}
-  .hero__overlay{position:static;width:auto;margin:22px 0 0;left:auto;top:auto;padding:0 28px}
+  .hero__overlay{position:static;width:auto;margin:22px 0 0;left:auto;top:auto;padding:16px 28px}
   .hero__overlay .hero__name{font-size:clamp(44px,15vw,72px)}
   .hero__overlay .hero__role{font-size:clamp(15px,4vw,19px);max-width:none}
 }
@@ -219,6 +294,13 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
     </div>
   </div>
   <div class="wrap hero__inner">
+    <div class="hero__value">
+      <h2 class="hero__headline">Six supply chains, built from zero.<br>None of them broke <em>at scale</em>.</h2>
+      <p class="hero__subhead">Marketplace inventory engines, omni-channel warehouse systems and last-mile platforms shipped across 11+ countries — engineered against on-time-in-full, not vanity velocity.</p>
+      <a class="hero__cta" href="#stage-01">View the work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+      </a>
+    </div>
     <p class="hero__lede">Fourteen projects, four countries, one continuous problem: getting the right item to the right person on time, at a cost the business can carry. Every project here sits somewhere on the path an order takes from <strong>a promise made at checkout</strong> to <strong>a box at the door</strong> — so that is how they are filed, by stage of the order rather than by the company that paid for them.</p>
     <ul class="legend">
       <li class="is-edu"><i></i>Cardiff — university</li>
@@ -241,7 +323,7 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
   </div>
 </nav>
 
-<section class="note wrap" aria-label="How to read this">
+<section class="note wrap reveal" aria-label="How to read this">
   <p class="eyebrow">How to read this</p>
   <p>Employers are described by category, not name. Architecture diagrams, internal documents and unlaunched roadmap are not reproduced anywhere on this page. What is here is the problem, the reasoning, and the result — which is the part worth discussing anyway.</p>
   <p>Figures are either already public or stated as the design target they were. Happy to go deeper in conversation on anything below.</p>
@@ -264,314 +346,399 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
 
     <!-- ============ 01 ============ -->
     <section class="stage" id="stage-01">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 01</span>
         <h2 class="stage__nm">Availability &amp; inventory</h2>
       </div>
       <p class="stage__sub">Before anything can be promised, the business has to know what it actually has, where it sits, and who it belongs to.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">INV-01 · built from zero</p>
         <h3 class="proj__title">Inventory management system for a marketplace</h3>
         <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>A marketplace lets several sellers list the same product from different locations. Treating a SKU as the unit of inventory breaks immediately — you cannot tell whose stock you just sold, or which warehouse owes the customer.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>A marketplace lets several sellers list the same product from different locations. Treating a SKU as the unit of inventory breaks immediately.</dd>
+          <dt>Task</dt>
+          <dd>Give the platform a single inventory model that could say whose stock had just sold, and which warehouse owed the customer — built from zero.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Defined an offer-level identity model — product, supplier and location combined into one key — so the same SKU could be listed by multiple sellers without collision.</li>
             <li>Modelled stock movement as a transaction ledger: receipts, issues, transfers and adjustments, each with a reason code, rather than mutating a quantity field.</li>
             <li>Set the system up as the single source of truth other systems subscribe to, instead of one more integration in a mesh.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Shipped as the inventory backbone for the marketplace, with real-time positions replacing periodic file syncs.</dd>
+          <dt>Result</dt>
+          <dd>Shipped as the inventory backbone for the marketplace, adopted by every downstream service.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">Zero → One</span><span class="metrics__lbl">Platform inventory backbone built from scratch</span></li>
+          <li class="signal"><span class="metrics__val">Real-time</span><span class="metrics__lbl">Positions replace periodic file syncs</span></li>
+        </ul>
         <ul class="tags"><li>Data modelling</li><li>Systems design</li><li>Marketplace</li><li>Zero to one</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">INV-02</p>
         <h3 class="proj__title">Availability, allocation and reservation</h3>
         <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
+          <dt>Situation</dt>
           <dd>Overselling and stockouts are the same failure seen from two sides: the number the storefront shows is not the number the warehouse can actually pick.</dd>
-          <dt>Approach</dt>
+          <dt>Task</dt>
+          <dd>Converge storefront and warehouse reality in real time, while still letting the business ring-fence stock for campaigns and priority orders.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Specified a global available-to-promise calculation covering every location and every offer, exposed in real time.</li>
             <li>Added rule-based ring-fencing so stock could be held back for flash sales, priority orders or campaigns without cloning inventory records.</li>
             <li>Designed a two-step reservation handshake — soft at order creation, hard on warehouse acceptance — with time and event-based release so abandoned carts return stock automatically.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Storefront availability and warehouse reality converged; campaign stock could be committed without taking it off sale.</dd>
+          <dt>Result</dt>
+          <dd>Storefront availability and warehouse reality converged, and campaign stock could be committed without ever being taken off sale.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">Global ATP</span><span class="metrics__lbl">Every location, every offer, live</span></li>
+          <li class="signal"><span class="metrics__val">2-step reserve</span><span class="metrics__lbl">Soft at order, hard at acceptance</span></li>
+        </ul>
         <ul class="tags"><li>Real-time systems</li><li>ATP</li><li>Edge cases</li><li>Commercial trade-offs</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">INV-03</p>
         <h3 class="proj__title">One inventory picture across five source types</h3>
         <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Stock lived in a third-party logistics provider, owned warehouses, retail back rooms and seller systems — each with its own schema, update cadence and definition of "available".</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Stock lived in a third-party logistics provider, owned warehouses, retail back rooms and seller systems — each with its own schema, cadence and definition of "available".</dd>
+          <dt>Task</dt>
+          <dd>Harmonise five source types into one inventory picture, sequenced so the roadmap didn't stall on the slowest integration.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Built an integration layer that harmonised roughly forty inventory attributes into one model, marking each field mandatory or optional by source.</li>
             <li>Chose publish-subscribe over point-to-point so order management, cart and search consumed one feed rather than four.</li>
             <li>Sequenced the rollout by source type, deliberately taking the third-party provider first because it was the only one already API-addressable.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Unlocked fulfilled-from-store and fulfilled-by-platform models that were previously blocked on inventory visibility.</dd>
+          <dt>Result</dt>
+          <dd>Unlocked fulfilled-from-store and fulfilled-by-platform models that had been blocked on inventory visibility.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">~40</span><span class="metrics__lbl">Inventory attributes harmonised</span></li>
+          <li><span class="metrics__val">5</span><span class="metrics__lbl">Source types, one inventory picture</span></li>
+        </ul>
         <ul class="tags"><li>Integration architecture</li><li>Phased delivery</li><li>Dependency management</li></ul>
       </article>
     </section>
 
     <!-- ============ 02 ============ -->
     <section class="stage" id="stage-02">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 02</span>
         <h2 class="stage__nm">Production &amp; warehouse</h2>
       </div>
       <p class="stage__sub">The floor is where cost per order is actually won or lost — in labour minutes, walking distance, and how often something has to be done twice.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">PRD-01 · flagship</p>
         <h3 class="proj__title">Build-to-order fulfillment</h3>
         <p class="proj__meta">European meal-kit business, three continents · Product lead, supply chain technologies</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Under a build-to-stock model, every additional menu option needs its own pre-built inventory and its own share of finite line capacity. Menu size — the company's main growth lever — was capped by the physical shape of the warehouse.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Under a build-to-stock model, every additional menu option needs its own pre-built inventory and its own share of finite line capacity.</dd>
+          <dt>Task</dt>
+          <dd>Remove the ceiling on menu size — the company's main growth lever — without a capital-expenditure fix.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Reframed the constraint: the ceiling was in the fulfillment model, not the buildings, so the fix belonged in production software rather than capital expenditure.</li>
             <li>Designed the production capability to assemble to the order instead of drawing from pre-built stock, and worked through what that changed for picking, sequencing and quality control.</li>
             <li>Delivered against live sites, where the cost of getting it wrong is measured in missed customer boxes.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Menu expansion decoupled from line capacity. Adopted as the company's top strategic objective, contributing directly to top-line growth.</dd>
+          <dt>Result</dt>
+          <dd>Menu expansion decoupled from line capacity for good — production software absorbed the growth the buildings couldn't.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">#1 objective</span><span class="metrics__lbl">Adopted company-wide, top of the roadmap</span></li>
+          <li class="signal"><span class="metrics__val">Top-line</span><span class="metrics__lbl">Direct contribution to growth</span></li>
+        </ul>
         <ul class="tags"><li>Strategy</li><li>Constraint reframing</li><li>Operating model change</li><li>Executive alignment</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">PRD-02</p>
         <h3 class="proj__title">Production control system and floor tooling</h3>
         <p class="proj__meta">European meal-kit business, three continents · Product lead, supply chain technologies</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Distribution centres on three continents run the same product on different building shapes, labour markets and volumes. One global platform ignores that; per-site software is unmaintainable.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Distribution centres on three continents run the same product on different building shapes, labour markets and volumes.</dd>
+          <dt>Task</dt>
+          <dd>Own one roadmap that works everywhere, without letting it collapse into unmaintainable per-site software.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Own the roadmap for the production control system and the tools around it — picking applications, quality control, electronic shelf labels for replenishment and pick accuracy, and production dashboards for site leadership.</li>
             <li>Hold the roadmap against four operating metrics: labour minutes per box, error rate, boxes per hour, and how far the menu can scale.</li>
             <li>Draw the line between what must be global and what sites configure themselves, deliberately, rather than letting it be settled by whoever escalates loudest.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>A single production platform in use across Europe, North America and ANZ, with every launch instrumented against at least one floor metric.</dd>
+          <dt>Result</dt>
+          <dd>A single production platform now runs across three continents, with every launch instrumented against a floor metric from day one.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">3</span><span class="metrics__lbl">Continents, one production platform</span></li>
+          <li><span class="metrics__val">4</span><span class="metrics__lbl">Floor metrics every launch is held to</span></li>
+        </ul>
         <ul class="tags"><li>Platform strategy</li><li>Labour efficiency</li><li>Global rollout</li><li>Operational KPIs</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">WMS-01 · built from zero</p>
         <h3 class="proj__title">Omni-channel warehouse management system</h3>
         <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Off-the-shelf warehouse systems assume an order is fulfilled from one warehouse. The business had staked itself on orders assembled from stores, warehouses and partners at once — and the platforms that could be adapted cost more than building.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Off-the-shelf warehouse systems assume an order is fulfilled from one warehouse. This business had staked itself on orders assembled from stores, warehouses and partners at once.</dd>
+          <dt>Task</dt>
+          <dd>Decide build versus buy, then deliver the full process — receiving through returns — designed backwards from the customer's cut-off, not a demo environment.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Made and documented the build-versus-buy case, including what buying would have bought us and why the hypothesis was too unproven to justify the price.</li>
             <li>Defined the full process scope — receiving, quality check, putaway, replenishment, picking, consolidation, packing, sortation, dispatch and returns — across fulfillment centres, delivery stations, retail stores and bonded cross-border sites.</li>
             <li>Planned execution backwards from the critical pull time, so the system scheduled every upstream step against the cut-off and flagged delays before they reached the customer.</li>
             <li>Cut hardware cost by specifying consumer devices with clip-on infrared scanners in place of industrial handhelds.</li>
-            <li>Shipped as a mobile app for the floor and a web console for warehouse managers, API-first so third-party hardware and software could attach.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Built to a design point of 1.5K orders a day, half a million items in storage, 99.5% delivered in full and on time, and fulfillment inside 24 hours.</dd>
+          <dt>Result</dt>
+          <dd>Shipped as a mobile app for the floor and a web console for warehouse managers, API-first so third-party hardware and software could attach.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">1.5K/day</span><span class="metrics__lbl">Orders at design point</span></li>
+          <li><span class="metrics__val">500K</span><span class="metrics__lbl">Items in storage</span></li>
+          <li><span class="metrics__val">99.5%</span><span class="metrics__lbl">Delivered in full &amp; on time</span></li>
+          <li><span class="metrics__val">&lt;24h</span><span class="metrics__lbl">Fulfillment turnaround</span></li>
+        </ul>
         <ul class="tags"><li>Build vs buy</li><li>WMS</li><li>Process design</li><li>Hardware strategy</li><li>Chain of custody</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">WMS-02</p>
         <h3 class="proj__title">Fulfillment technology across 80+ sites</h3>
         <p class="proj__meta">Regional grocery and hypermarket operator, MENA · Product manager, logistics</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Technology that works in a pilot warehouse routinely fails at the fiftieth, where the building is older, the team is newer and nobody was in the room when it was designed.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Technology that works in a pilot warehouse routinely fails at the fiftieth, where the building is older, the team is newer, and nobody was in the room when it was designed.</dd>
+          <dt>Task</dt>
+          <dd>Roll out fulfillment technology across more than eighty sites, including automated warehouses, without repeating the pilot's assumptions.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Directed rollout of fulfillment technology across more than eighty sites, including automated warehouses.</li>
             <li>Paired every deployment with performance management tooling, so sites could see their own numbers rather than hear about them a month later.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>On-time in-full up 11%; fleet utilisation up 27%.</dd>
+          <dt>Result</dt>
+          <dd>Every site got performance tooling that showed its own numbers, not a monthly report from head office.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">80+</span><span class="metrics__lbl">Sites deployed</span></li>
+          <li><span class="metrics__val">+11%</span><span class="metrics__lbl">On-time-in-full</span></li>
+          <li><span class="metrics__val">+27%</span><span class="metrics__lbl">Fleet utilisation</span></li>
+        </ul>
         <ul class="tags"><li>Scaled rollout</li><li>Change management</li><li>Automation</li><li>Performance tooling</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">WMS-03 · hands-on build</p>
         <h3 class="proj__title">AI-native warehouse and receiving applications</h3>
         <p class="proj__meta">Enterprise supply chain clients, Europe · Forward deployed engineer</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
+          <dt>Situation</dt>
           <dd>Mid-size operators need warehouse software shaped to their ERP and their process, but cannot fund a conventional build cycle to get it.</dd>
-          <dt>Approach</dt>
+          <dt>Task</dt>
+          <dd>Own product definition, architecture, interface and implementation, and ship the working system — not a prototype handed off to someone else.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Owned product definition, solution architecture, interface design and implementation — not a prototype handed off, but the working system.</li>
             <li>Used agentic development tooling to compress the cycle while holding enterprise integration and quality standards.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>ERP-integrated warehouse management and inventory receiving applications running in live operations for clients in several countries.</dd>
+          <dt>Result</dt>
+          <dd>ERP-integrated warehouse management and inventory receiving applications running in live operations, not pilots.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">Multi-country</span><span class="metrics__lbl">Live in production for clients in several countries</span></li>
+          <li class="signal"><span class="metrics__val">Agentic build</span><span class="metrics__lbl">Compressed cycle, enterprise-grade integration</span></li>
+        </ul>
         <ul class="tags"><li>Zero to one</li><li>Solution architecture</li><li>AI-assisted delivery</li><li>ERP integration</li></ul>
       </article>
     </section>
 
     <!-- ============ 03 ============ -->
     <section class="stage" id="stage-03">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 03</span>
         <h2 class="stage__nm">Promise &amp; planning</h2>
       </div>
       <p class="stage__sub">The delivery date shown at checkout is the most consequential number in e-commerce. It sets the customer's expectation and commits the network to meeting it.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">PRM-01</p>
         <h3 class="proj__title">Dynamic delivery promise</h3>
         <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>A fixed promise is wrong twice over: too cautious for customers near a stocked warehouse, too optimistic for everyone else. Both cost money — one in lost conversion, the other in failed deliveries.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>A fixed delivery promise is wrong twice over: too cautious for customers near a stocked warehouse, too optimistic for everyone else.</dd>
+          <dt>Task</dt>
+          <dd>Build the promise from live signals — stock location, fulfilling site, reachable cut-off, customer location — instead of a static table.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Built the promise from real signals — where the stock is, which site can fulfil, the cut-off still reachable, and the customer's actual location — rather than a static table.</li>
             <li>Added location intelligence to improve address accuracy in a region where addressing is genuinely hard.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Same-day and next-day availability up 14%; failed deliveries down 4.7%; NPS up 0.7.</dd>
+          <dt>Result</dt>
+          <dd>The promise shown at checkout finally matched what the network could actually deliver.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">+14%</span><span class="metrics__lbl">Same/next-day availability</span></li>
+          <li><span class="metrics__val">-4.7%</span><span class="metrics__lbl">Failed deliveries</span></li>
+          <li><span class="metrics__val">+0.7</span><span class="metrics__lbl">NPS</span></li>
+        </ul>
         <ul class="tags"><li>Delivery promise</li><li>Location intelligence</li><li>Conversion</li><li>Cost to serve</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">PRM-02</p>
         <h3 class="proj__title">Network planning and distribution optimization</h3>
         <p class="proj__meta">GCC omni-channel retail marketplace · Senior PM, fulfillment technology</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
+          <dt>Situation</dt>
           <dd>A mixed fleet of owned drivers and third-party carriers, planned by hand, cannot be reasoned about — you can see the cost but not which decision caused it.</dd>
-          <dt>Approach</dt>
+          <dt>Task</dt>
+          <dd>Own the planning platform end to end and make service level, promise accuracy and cost per order steerable rather than emergent.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Owned the planning platform end to end: routing, delivery zones, capacity planning and slot optimization.</li>
             <li>Worked directly with engineering on the optimization approach and, more importantly, on the operational constraints it had to respect to be usable.</li>
           </ul></dd>
-          <dt>Outcome</dt>
+          <dt>Result</dt>
           <dd>Service levels, promise accuracy and cost per order became measurable and steerable rather than emergent.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">Steerable</span><span class="metrics__lbl">Service level, promise accuracy, cost/order</span></li>
+        </ul>
         <ul class="tags"><li>Network optimization</li><li>Routing</li><li>Capacity planning</li><li>3PL</li></ul>
       </article>
     </section>
 
     <!-- ============ 04 ============ -->
     <section class="stage" id="stage-04">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 04</span>
         <h2 class="stage__nm">Last mile &amp; peak</h2>
       </div>
       <p class="stage__sub">The only part of fulfillment the customer sees — and the part that breaks first when volume spikes.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">LM-01</p>
         <h3 class="proj__title">Last-mile platform suite across 11 countries</h3>
         <p class="proj__meta">Regional grocery and hypermarket operator, MENA · Product manager, logistics</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
+          <dt>Situation</dt>
           <dd>Eleven countries, each with its own carriers, licensed tooling and definition of a delivery — and a growing subscription bill for software that did not talk to itself.</dd>
-          <dt>Approach</dt>
+          <dt>Task</dt>
+          <dd>Replace fragmented licensed tooling with one connected suite spanning carrier management, delivery management, promise and tracking.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Led development of carrier management, delivery management, delivery promise and customer order tracking as one connected suite.</li>
             <li>Built predictive analytics and routing optimization on top, so planning improved as the data accumulated.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Deployed across eleven countries, replacing licensed tooling for AED 4.8M in annual savings while improving the tracking experience.</dd>
+          <dt>Result</dt>
+          <dd>Licensed point tools retired in favour of one connected suite, with a better tracking experience on top.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">11</span><span class="metrics__lbl">Countries deployed</span></li>
+          <li><span class="metrics__val">AED 4.8M</span><span class="metrics__lbl">Annual savings vs. licensed tools</span></li>
+        </ul>
         <ul class="tags"><li>Multi-country</li><li>Carrier management</li><li>Cost reduction</li><li>Predictive analytics</li></ul>
       </article>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">LM-02</p>
         <h3 class="proj__title">Peak trading at four times volume</h3>
         <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>The region's largest trading event compresses a month of orders into days. Everything that is merely adequate in normal weeks fails, and it fails in public.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>The region's largest trading event compresses a month of orders into days. Everything merely adequate in a normal week fails, and fails in public.</dd>
+          <dt>Task</dt>
+          <dd>Design backwards from the volume the network had to survive, and own readiness and launch execution end to end.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Owned platform readiness and launch execution end to end, working backwards from the volume the network had to survive.</li>
             <li>Treated the constraint as the design input rather than testing against normal load and hoping.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Sustained four times normal transaction volume without service degradation.</dd>
+          <dt>Result</dt>
+          <dd>The network held through the region's single largest trading event without visible strain.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">4X</span><span class="metrics__lbl">Normal transaction volume sustained</span></li>
+          <li class="signal"><span class="metrics__val">Held the line</span><span class="metrics__lbl">No service degradation at peak</span></li>
+        </ul>
         <ul class="tags"><li>Peak readiness</li><li>Launch execution</li><li>Scale testing</li></ul>
       </article>
     </section>
 
     <!-- ============ 05 ============ -->
     <section class="stage" id="stage-05">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 05</span>
         <h2 class="stage__nm">Returns</h2>
       </div>
       <p class="stage__sub">Reverse logistics is where customer trust is either repaired or lost for good, and it is almost always the least designed part of the chain.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">RET-01</p>
         <h3 class="proj__title">Returns and order journey redesign</h3>
         <p class="proj__meta">Omnichannel retail group, MENA · Senior PM, e-commerce supply chain</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>A three-day refund turnaround generates a contact for every return. The customer is not chasing money so much as chasing certainty, and every one of those contacts costs twice — once in service, once in trust.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>A three-day refund turnaround generates a contact for every return. The customer isn't chasing money so much as chasing certainty.</dd>
+          <dt>Task</dt>
+          <dd>Redesign returns, address management and order journeys as one flow, and attack the refund timeline itself rather than add status messaging on top.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Redesigned returns, address management and order journeys across web and mobile as one flow rather than three screens.</li>
             <li>Attacked the refund timeline itself instead of adding status messaging on top of a slow process.</li>
           </ul></dd>
-          <dt>Outcome</dt>
-          <dd>Refund turnaround cut from 72 hours to under 24; customer contacts down 11%; satisfaction up.</dd>
+          <dt>Result</dt>
+          <dd>Customers stopped chasing status updates because the refund itself arrived before they needed to ask.</dd>
         </dl>
+        <ul class="metrics">
+          <li><span class="metrics__val">72h → &lt;24h</span><span class="metrics__lbl">Refund turnaround</span></li>
+          <li><span class="metrics__val">-11%</span><span class="metrics__lbl">Customer contacts</span></li>
+        </ul>
         <ul class="tags"><li>Reverse logistics</li><li>Customer experience</li><li>Web &amp; mobile</li><li>Contact reduction</li></ul>
       </article>
     </section>
 
     <!-- ============ 06 ============ -->
     <section class="stage" id="stage-06">
-      <div class="stage__head">
+      <div class="stage__head reveal">
         <span class="stage__no">Stage 06</span>
         <h2 class="stage__nm">Off the line</h2>
       </div>
       <p class="stage__sub">Work that sits outside the order path, where the same instincts apply to a different problem.</p>
 
-      <article class="proj">
+      <article class="proj reveal">
         <p class="proj__code">PLT-01 · advisory</p>
         <h3 class="proj__title">B2B marketplace with embedded finance</h3>
         <p class="proj__meta">Stealth startup, GCC · Fractional chief product officer</p>
         <dl class="proj__body">
-          <dt>Problem</dt>
-          <dd>Small hospitality businesses buy supplies constantly and are financed badly. The procurement problem and the credit problem are the same problem, and solving either alone leaves most of the value on the table.</dd>
-          <dt>Approach</dt>
+          <dt>Situation</dt>
+          <dd>Small hospitality businesses buy supplies constantly and are financed badly. The procurement problem and the credit problem are the same problem.</dd>
+          <dt>Task</dt>
+          <dd>Define product vision, marketplace strategy and commercial model as fractional CPO, and embed financing directly inside the buying flow.</dd>
+          <dt>Action</dt>
           <dd><ul>
             <li>Defined product vision, marketplace strategy, customer journeys and the commercial model.</li>
             <li>Integrated multiple financing providers so credit and working capital appear inside the buying flow rather than beside it.</li>
           </ul></dd>
-          <dt>Outcome</dt>
+          <dt>Result</dt>
           <dd>Roadmap shaped from concept to launch, with a path into adjacent verticals once the model is proven.</dd>
         </dl>
+        <ul class="metrics">
+          <li class="signal"><span class="metrics__val">Concept → launch</span><span class="metrics__lbl">Roadmap shaped end to end</span></li>
+        </ul>
         <ul class="tags"><li>Marketplace strategy</li><li>Embedded finance</li><li>Commercial modelling</li><li>Founder advisory</li></ul>
       </article>
     </section>
@@ -601,21 +768,76 @@ a:focus-visible,.band a:focus-visible{outline:2px solid var(--amber-deep);outlin
   items.forEach(function(li){ map[li.getAttribute('data-rail')] = li; });
 
   var sections = Array.prototype.slice.call(document.querySelectorAll('.stage'));
-  if(!('IntersectionObserver' in window) || !sections.length) return;
+  if('IntersectionObserver' in window && sections.length){
+    var visible = {};
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      var best = null, bestVal = 0;
+      sections.forEach(function(s){
+        var v = visible[s.id] || 0;
+        if(v > bestVal){ bestVal = v; best = s.id; }
+      });
+      items.forEach(function(li){ li.classList.remove('is-on'); });
+      if(best && map[best]) map[best].classList.add('is-on');
+    }, { rootMargin:'-15% 0px -55% 0px', threshold:[0,0.15,0.4,0.75,1] });
 
-  var visible = {};
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
-    var best = null, bestVal = 0;
-    sections.forEach(function(s){
-      var v = visible[s.id] || 0;
-      if(v > bestVal){ bestVal = v; best = s.id; }
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+})();
+
+/* ---- scroll-driven stagger reveal ---- */
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if(!revealEls.length) return;
+
+  if(reduced || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var el = entry.target;
+      var siblings = Array.prototype.slice.call(el.parentElement.children)
+        .filter(function(c){ return c.classList.contains('reveal'); });
+      var idx = siblings.indexOf(el);
+      el.style.transitionDelay = (Math.min(idx,6)*70) + 'ms';
+      el.classList.add('is-visible');
+      io.unobserve(el);
     });
-    items.forEach(function(li){ li.classList.remove('is-on'); });
-    if(best && map[best]) map[best].classList.add('is-on');
-  }, { rootMargin:'-15% 0px -55% 0px', threshold:[0,0.15,0.4,0.75,1] });
+  }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
 
-  sections.forEach(function(s){ obs.observe(s); });
+  revealEls.forEach(function(el){ io.observe(el); });
+})();
+
+/* ---- custom cursor accent ---- */
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if(reduced || !fine) return;
+
+  var dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  document.body.appendChild(dot);
+
+  var x = 0, y = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', function(e){
+    x = e.clientX; y = e.clientY; dot.style.opacity = '1';
+  });
+
+  function raf(){
+    cx += (x - cx) * 0.18; cy += (y - cy) * 0.18;
+    dot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0) translate(-50%,-50%)';
+    requestAnimationFrame(raf);
+  }
+  raf();
+
+  document.querySelectorAll('a, .proj, button').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ dot.classList.add('cursor-dot--hover'); });
+    el.addEventListener('mouseleave', function(){ dot.classList.remove('cursor-dot--hover'); });
+  });
 })();
 </script>
 
