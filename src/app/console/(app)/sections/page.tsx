@@ -3,6 +3,8 @@ import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { deleteSection, saveSection } from "../../actions";
 import { ActionForm } from "../../ui";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
 type Section = { id: string; label: string; shortLabel: string; blurb: string; position: number };
 
@@ -28,7 +30,15 @@ function SectionFields({ s }: { s?: Section }) {
   );
 }
 
-export default async function SectionsPage() {
+export default function SectionsPage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <SectionsPageContent />
+    </Suspense>
+  );
+}
+
+async function SectionsPageContent() {
   const { tenantId } = await requireOwner();
   const sections = await db.query.caseStudySections.findMany({
     where: eq(schema.caseStudySections.tenantId, tenantId),

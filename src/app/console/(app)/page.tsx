@@ -2,10 +2,20 @@ import Link from "next/link";
 import { and, count, desc, eq, gt } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../loading-state";
 
 const daysAgo = (days: number) => new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 
-export default async function ConsoleOverview() {
+export default function ConsoleOverview() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <ConsoleOverviewContent />
+    </Suspense>
+  );
+}
+
+async function ConsoleOverviewContent() {
   const { tenantId } = await requireOwner();
   const cs = schema.caseStudies;
   const since = daysAgo(30);

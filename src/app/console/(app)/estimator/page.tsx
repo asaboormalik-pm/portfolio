@@ -3,8 +3,18 @@ import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { saveEstimator } from "../../actions";
 import { ActionForm, RowsEditor } from "../../ui";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
-export default async function EstimatorPage() {
+export default function EstimatorPage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <EstimatorPageContent />
+    </Suspense>
+  );
+}
+
+async function EstimatorPageContent() {
   const { tenantId } = await requireOwner();
   const c = await db.query.estimatorConfigs.findFirst({ where: eq(schema.estimatorConfigs.tenantId, tenantId) });
 

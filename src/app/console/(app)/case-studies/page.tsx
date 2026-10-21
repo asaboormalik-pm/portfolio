@@ -3,8 +3,18 @@ import { asc, eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { moveCaseStudy, setCaseStudyPublished } from "../../actions";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
-export default async function CaseStudiesList() {
+export default function CaseStudiesList() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <CaseStudiesListContent />
+    </Suspense>
+  );
+}
+
+async function CaseStudiesListContent() {
   const { tenantId } = await requireOwner();
   const [studies, sections] = await Promise.all([
     db.query.caseStudies.findMany({ where: eq(schema.caseStudies.tenantId, tenantId), orderBy: asc(schema.caseStudies.position) }),

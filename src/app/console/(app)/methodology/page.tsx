@@ -3,8 +3,18 @@ import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { saveMethodology } from "../../actions";
 import { ActionForm, RowsEditor } from "../../ui";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
-export default async function MethodologyPage() {
+export default function MethodologyPage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <MethodologyPageContent />
+    </Suspense>
+  );
+}
+
+async function MethodologyPageContent() {
   const { tenantId } = await requireOwner();
   const doc = await db.query.methodologyDocs.findFirst({ where: eq(schema.methodologyDocs.tenantId, tenantId) });
 

@@ -3,8 +3,18 @@ import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { deleteTag, saveTag } from "../../actions";
 import { ActionForm } from "../../ui";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
-export default async function TagsPage() {
+export default function TagsPage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <TagsPageContent />
+    </Suspense>
+  );
+}
+
+async function TagsPageContent() {
   const { tenantId } = await requireOwner();
   const t = schema.skillTags;
   const tags = await db

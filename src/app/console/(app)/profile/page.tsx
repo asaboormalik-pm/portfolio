@@ -4,6 +4,8 @@ import type { ThemeColorKey } from "@/db/schema";
 import { requireOwner } from "@/lib/dal";
 import { saveProfile } from "../../actions";
 import { ActionForm, RowsEditor } from "../../ui";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
 const colorFields: [ThemeColorKey, string, string][] = [
   ["canvas", "Background", "#FFFFFF"],
@@ -14,7 +16,15 @@ const colorFields: [ThemeColorKey, string, string][] = [
   ["rose", "Third accent", "#D9738F"],
 ];
 
-export default async function ProfilePage() {
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <ProfilePageContent />
+    </Suspense>
+  );
+}
+
+async function ProfilePageContent() {
   const { tenantId } = await requireOwner();
   const t = await db.query.tenants.findFirst({ where: eq(schema.tenants.id, tenantId) });
   if (!t) return null;

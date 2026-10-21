@@ -5,8 +5,18 @@ import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { deleteCaseStudy } from "../../../actions";
 import { CaseStudyForm } from "../case-study-form";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../../loading-state";
 
-export default async function EditCaseStudy({ params, searchParams }: PageProps<"/console/case-studies/[id]">) {
+export default function EditCaseStudy(props: PageProps<"/console/case-studies/[id]">) {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <EditCaseStudyContent {...props} />
+    </Suspense>
+  );
+}
+
+async function EditCaseStudyContent({ params, searchParams }: PageProps<"/console/case-studies/[id]">) {
   const { tenantId } = await requireOwner();
   const { id } = await params;
   const { created } = await searchParams;

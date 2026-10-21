@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { logout } from "../actions";
 
 export const metadata: Metadata = { title: "Console", robots: { index: false } };
 
-// Console pages read the session, so they render per request behind this boundary.
+// Navigating into the console from the public site may block on the session check;
+// navigations between console pages stream behind loading.tsx.
 export const instant = false;
 
 const nav = [
@@ -45,9 +45,7 @@ export default function ConsoleLayout({ children }: { children: React.ReactNode 
           </button>
         </form>
       </aside>
-      <main className="console__main">
-        <Suspense fallback={<p className="eyebrow">Loading…</p>}>{children}</Suspense>
-      </main>
+      <main className="console__main">{children}</main>
     </div>
   );
 }

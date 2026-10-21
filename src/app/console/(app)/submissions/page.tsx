@@ -2,8 +2,18 @@ import { desc, eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { requireOwner } from "@/lib/dal";
 import { formatMoney } from "@/lib/estimate";
+import { Suspense } from "react";
+import { ConsoleLoading } from "../../loading-state";
 
-export default async function SubmissionsPage() {
+export default function SubmissionsPage() {
+  return (
+    <Suspense fallback={<ConsoleLoading />}>
+      <SubmissionsPageContent />
+    </Suspense>
+  );
+}
+
+async function SubmissionsPageContent() {
   const { tenantId } = await requireOwner();
   const rows = await db.query.contactSubmissions.findMany({
     where: eq(schema.contactSubmissions.tenantId, tenantId),
